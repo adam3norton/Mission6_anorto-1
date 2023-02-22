@@ -14,7 +14,10 @@ namespace Mission6_anorto_1.Models
         [Required]
         public string Title { get; set; }
         [Required]
-        public string Category { get; set; }
+        public int CategoryId { get; set; }
+        
+        public Category Category { get; set; }
+
         [Required]
         public int Year { get; set; }
         [Required]

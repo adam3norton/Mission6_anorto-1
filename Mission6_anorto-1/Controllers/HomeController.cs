@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using Mission6_anorto_1.Models;
 using System;
@@ -41,6 +42,15 @@ namespace Mission6_anorto_1.Controllers
             _movieContext.Add(movie);
             _movieContext.SaveChanges();
             return View("Confirmation", movie);
+        }
+
+        [HttpGet]
+        public IActionResult Collection()
+        { 
+            var movieCollection = _movieContext.Movies
+                .Include(m => m.Category)
+                .ToList();
+            return View(movieCollection);
         }
 
         public IActionResult Privacy()

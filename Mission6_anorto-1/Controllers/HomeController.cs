@@ -33,15 +33,23 @@ namespace Mission6_anorto_1.Controllers
         [HttpGet]
         public IActionResult MovieForm()
         {
+            ViewBag.Categories = _movieContext.Categories.ToList();
             return View();
         }
 
         [HttpPost]
         public IActionResult MovieForm(MovieRecord movie)
         {
-            _movieContext.Add(movie);
-            _movieContext.SaveChanges();
-            return View("Confirmation", movie);
+            if (ModelState.IsValid)
+            {
+                _movieContext.Add(movie);
+                _movieContext.SaveChanges();
+                return View("Confirmation", movie);
+            }
+            else
+            {
+                return View();
+            }
         }
 
         [HttpGet]
@@ -51,6 +59,39 @@ namespace Mission6_anorto_1.Controllers
                 .Include(m => m.Category)
                 .ToList();
             return View(movieCollection);
+        }
+
+        [HttpGet]
+        public IActionResult Edit(int movieid)
+        {
+            ViewBag.Categories = _movieContext.Categories.ToList();
+            var movie = _movieContext.Movies.Single(x => x.MovieId == movieid);
+            return View("MovieForm", movie);
+        }
+
+        [HttpPost]
+        public IActionResult Edit (MovieRecord mov)
+        {
+            _movieContext.Update(mov);
+            _movieContext.SaveChanges();
+
+            return RedirectToAction("Collection");
+        }
+
+        [HttpGet]
+        public IActionResult Delete (int movieid)
+        {
+            var mov = _movieContext.Movies.Single(x => x.MovieId == movieid);
+            return View(mov);
+        }
+
+        [HttpPost]
+        public IActionResult Delete (MovieRecord mr)
+        {
+            _movieContext.Movies.Remove(mr);
+            _movieContext.SaveChanges();
+
+            return RedirectToAction("Collection");
         }
 
         public IActionResult Privacy()

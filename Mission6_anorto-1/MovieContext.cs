@@ -14,16 +14,18 @@ namespace Mission6_anorto_1
         }
 
         public DbSet<MovieRecord> Movies { get; set; }
+        public DbSet<Category> Categories { get; set; }
 
         protected override void OnModelCreating (ModelBuilder mb)
         {
             mb.Entity<MovieRecord>().HasData(
                 new MovieRecord
                 {
-                    MovieId = 0,
+                    MovieId = 1,
                     Title = "Tarzan",
-                    CategoryId = 0,
+                    CategoryId = 1,
                     Director = "Don't know",
+                    Rating = "PG",
                     Year = 2004,
                     Edited = false,
                     LentTo = "",
@@ -34,32 +36,32 @@ namespace Mission6_anorto_1
             mb.Entity<Category>().HasData(
                 new Category
                 {
-                    CategoryId = 0,
+                    CategoryId = 1,
                     CategoryTitle = "Disney / Animated",
                 },
                 new Category
                 {
-                    CategoryId = 1,
+                    CategoryId = 2,
                     CategoryTitle = "Action",
                 },
                 new Category
                 {
-                    CategoryId = 2,
+                    CategoryId = 3,
                     CategoryTitle = "Comedy",
                 },
                 new Category
                 {
-                    CategoryId = 3,
+                    CategoryId = 4,
                     CategoryTitle = "Romance",
                 },
                 new Category
                 {
-                    CategoryId = 4,
+                    CategoryId = 5,
                     CategoryTitle = "Mystery",
                 },
                 new Category
                 {
-                    CategoryId = 5,
+                    CategoryId = 6,
                     CategoryTitle = "Horror",
                 }
             );

@@ -16,7 +16,13 @@
 
         <div>
             <label asp-for="Category">Category</label>
-            <input asp-for="Category" />
+            <select asp-for="CategoryId">
+                <option value="">Select a Category</option>
+                @foreach (Category c in ViewBag.Categories)
+                {
+                    <option value="@c.CategoryId">@c.CategoryTitle</option>
+                }
+            </select>
         </div>
 
         <div>
